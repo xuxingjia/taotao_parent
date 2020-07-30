@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.demo.taotao_dao.mapper.TemplateMapper">
+
+    <insert id="insertTemplate" parameterType="com.study.demo.taotao_pojo.pojo.TbTypeTemplate">
+        insert into tb_type_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id>=0">
+                id,
+            </if>
+            <if test="name!=null">
+                name,
+            </if>
+            <if test="specIds!=null">
+                spec_ids,
+            </if>
+            <if test="brandIds!=null">
+                brand_ids,
+            </if>
+            <if test="customAttributeItems!=null">
+                custom_attribute_items,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id>=0">
+                ${id},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="specIds!=null">
+                #{specIds},
+            </if>
+            <if test="brandIds!=null">
+                #{brandIds},
+            </if>
+            <if test="customAttributeItems!=null">
+                #{customAttributeItems},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectTbTypeTemplates" resultType="com.study.demo.taotao_pojo.pojo.TbTypeTemplate">
+        select id, name, spec_ids as specIds, brand_ids as brandIds, custom_attribute_items as customAttributeItems from tb_type_template
+    </select>
+
+    <update id="updateTemplate" parameterType="com.study.demo.taotao_pojo.pojo.TbTypeTemplate">
+        update tb_type_template set
+        <trim suffixOverrides=",">
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="specIds!=null">
+                spec_ids=#{specIds},
+            </if>
+            <if test="brandIds!=null">
+                brand_ids=#{brandIds},
+            </if>
+            <if test="customAttributeItems!=null">
+                custom_attribute_items=#{customAttributeItems},
+            </if>
+        </trim>
+        where id=${id}
+    </update>
+
+    <delete id="deleteTemplate" parameterType="Integer">
+        delete from tb_type_template where id=${id}
+    </delete>
+
+    <select id="selectSpecIds" parameterType="Integer" resultType="String">
+        select spec_ids from tb_type_template where id=${typeId}
+    </select>
+</mapper>

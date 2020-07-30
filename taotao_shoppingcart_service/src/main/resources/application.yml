@@ -1,0 +1,25 @@
+server:
+  port: 8109
+
+dubbo:
+  application:
+    name: taotao_shoppingcart_service
+  registry:
+    address: zookeeper://192.168.8.250:2181
+  scan:
+    base-packages: com.study.demo.taotao_shoppingcart_service.impl
+  config-center:
+    timeout: 6000
+  protocol:
+    port: 20885
+mybatis:
+  config-location: classpath:mybatis/mybatis_config.xml
+
+
+spring:
+  datasource:
+    username: root
+    password: '123456'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pinyougoudb?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    type: com.alibaba.druid.pool.DruidDataSource

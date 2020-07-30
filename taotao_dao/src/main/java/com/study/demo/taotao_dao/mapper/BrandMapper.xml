@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.demo.taotao_dao.mapper.BrandMapper">
+
+    <select id="selectBrandNameById" parameterType="Integer" resultType="String">
+        select name from tb_brand where id=${brandId}
+    </select>
+
+    <select id="getAllBrand" resultType="com.study.demo.taotao_pojo.pojo.TbBrand">
+        select id, name, first_char as firstChar from tb_brand
+    </select>
+
+    <select id="getBrandById" parameterType="Integer" resultType="com.study.demo.taotao_pojo.pojo.TbBrand">
+        select id, name, first_char as firstChar from tb_brand where id=${id}
+    </select>
+
+    <update id="updateBrandById" parameterType="com.study.demo.taotao_pojo.pojo.TbBrand">
+        update tb_brand
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">
+                name =#{name},
+            </if>
+            <if test="firstChar != null">
+                first_char =#{firstChar},
+            </if>
+        </trim>
+        where id=${id}
+    </update>
+
+    <delete id="deleteBrandById" parameterType="Integer">
+        delete from tb_brand where id=${id}
+    </delete>
+    <insert id="insertBrand" parameterType="com.study.demo.taotao_pojo.pojo.TbBrand" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null">
+                name,
+            </if>
+            <if test="firstChar!=null">
+                first_char,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="firstChar!=null">
+                #{firstChar},
+            </if>
+        </trim>
+    </insert>
+</mapper>

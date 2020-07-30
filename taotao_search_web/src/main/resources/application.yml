@@ -1,0 +1,12 @@
+server:
+  port: 8002
+
+dubbo:
+  application:
+    name: taotao_search_web
+  registry:
+    address: zookeeper://192.168.8.250:2181
+  scan:
+    base-packages: com.study.demo.taotao_search_web.controller
+  consumer:
+    timeout: 6000

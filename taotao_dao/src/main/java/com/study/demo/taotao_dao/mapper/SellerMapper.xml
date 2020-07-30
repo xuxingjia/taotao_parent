@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.demo.taotao_dao.mapper.SellerMapper">
+    <select id="selectSellerName" parameterType="String" resultType="String">
+        select name from tb_seller where seller_id=#{sellerId}
+    </select>
+
+    <insert id="insertSeller" parameterType="com.study.demo.taotao_pojo.pojo.TbSeller">
+        insert into tb_seller
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sellerId!=null">
+                seller_id,
+            </if>
+            <if test="name!=null">
+                name,
+            </if>
+            <if test="nickName!=null">
+                nick_name,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="email!=null">
+                email,
+            </if>
+            <if test="mobile!=null">
+                mobile,
+            </if>
+            <if test="telephone!=null">
+                telephone,
+            </if>
+            <if test="status!=null">
+                status,
+            </if>
+            <if test="addressDetail!=null">
+                address_detail,
+            </if>
+            <if test="linkmanName!=null">
+                linkman_name,
+            </if>
+            <if test="linkmanQq!=null">
+                linkman_qq,
+            </if>
+            <if test="linkmanMobile!=null">
+                linkman_mobile,
+            </if>
+            <if test="linkmanEmail!=null">
+                linkman_email,
+            </if>
+            <if test="licenseNumber!=null">
+                license_number,
+            </if>
+            <if test="taxNumber!=null">
+                tax_number,
+            </if>
+            <if test="orgNumber!=null">
+                org_number,
+            </if>
+            <if test="address!=null">
+                address,
+            </if>
+            <if test="logoPic!=null">
+                logo_pic,
+            </if>
+            <if test="brief!=null">
+                brief,
+            </if>
+            <if test="createTime!=null">
+                create_time,
+            </if>
+            <if test="legalPerson!=null">
+                legal_person,
+            </if>
+            <if test="legalPersonCardId!=null">
+                legal_person_card_id,
+            </if>
+            <if test="bankUser!=null">
+                bank_user,
+            </if>
+            <if test="bankName!=null">
+                bank_name,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sellerId!=null">
+                #{sellerId},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="nickName!=null">
+                #{nickName},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="email!=null">
+                #{email},
+            </if>
+            <if test="mobile!=null">
+                #{mobile},
+            </if>
+            <if test="telephone!=null">
+                #{telephone},
+            </if>
+            <if test="status!=null">
+                #{status},
+            </if>
+            <if test="addressDetail!=null">
+                #{addressDetail},
+            </if>
+            <if test="linkmanName!=null">
+                #{linkmanName},
+            </if>
+            <if test="linkmanQq!=null">
+                #{linkmanQq},
+            </if>
+            <if test="linkmanMobile!=null">
+                #{linkmanMobile},
+            </if>
+            <if test="linkmanEmail!=null">
+                #{linkmanEmail},
+            </if>
+            <if test="licenseNumber!=null">
+                #{licenseNumber},
+            </if>
+            <if test="taxNumber!=null">
+                #{taxNumber},
+            </if>
+            <if test="orgNumber!=null">
+                #{orgNumber},
+            </if>
+            <if test="address!=null">
+                #{address},
+            </if>
+            <if test="logoPic!=null">
+                #{logoPic},
+            </if>
+            <if test="brief!=null">
+                #{brief},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="legalPerson!=null">
+                #{legalPerson},
+            </if>
+            <if test="legalPersonCardId!=null">
+                #{legalPersonCardId},
+            </if>
+            <if test="bankUser!=null">
+                #{bankUser},
+            </if>
+            <if test="bankName!=null">
+                #{bankName}
+            </if>
+        </trim>
+    </insert>
+
+    <resultMap id="sellerMap" type="com.study.demo.taotao_pojo.pojo.TbSeller">
+        <id column="seller_id" property="sellerId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="address_detail" property="addressDetail"/>
+        <result column="linkman_name" property="linkmanName"/>
+        <result column="linkman_qq" property="linkmanQq"/>
+        <result column="linkman_mobile" property="linkmanMobile"/>
+        <result column="linkman_email" property="linkmanEmail"/>
+        <result column="license_number" property="licenseNumber"/>
+        <result column="tax_number" property="taxNumber"/>
+        <result column="org_number" property="orgNumber"/>
+        <result column="logo_pic" property="logoPic"/>
+        <result column="create_time" property="createTime"/>
+        <result column="legal_person" property="legalPerson"/>
+        <result column="legal_person_card_id" property="legalPersonCardId"/>
+        <result column="bank_user" property="bankUser"/>
+        <result column="bank_name" property="bankName"/>
+    </resultMap>
+
+    <select id="selectCheckPendingTbSellers" parameterType="String" resultMap="sellerMap">
+        select seller_id, name, nick_name, password, email, mobile, telephone, status, address_detail, linkman_name, linkman_qq, linkman_mobile, linkman_email, license_number,
+         tax_number, org_number, address, logo_pic, brief, create_time, legal_person, legal_person_card_id, bank_user, bank_name from tb_seller where status=#{checkStatus}
+    </select>
+
+    <select id="selectTbSellerBySellerId" parameterType="String" resultMap="sellerMap">
+        select seller_id, name, nick_name, password, email, mobile, telephone, status, address_detail, linkman_name, linkman_qq, linkman_mobile, linkman_email, license_number, tax_number, org_number, address, logo_pic, brief, create_time, legal_person, legal_person_card_id, bank_user, bank_name
+        from tb_seller where seller_id=#{sellerId}
+    </select>
+
+    <update id="updateTbSellerStatusById" parameterType="com.study.demo.taotao_pojo.params.AlterSellerStatusParams">
+        update tb_seller set
+        <trim suffixOverrides=",">
+            <if test="sellerStatus!=null">
+                status=#{sellerStatus},
+            </if>
+        </trim>
+        where seller_id=#{id}
+    </update>
+</mapper>

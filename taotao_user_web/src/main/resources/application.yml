@@ -1,0 +1,17 @@
+server:
+  port: 8092
+spring:
+  freemarker:
+    suffix: .jsp
+
+dubbo:
+  application:
+    name: taotaoUserWeb
+  registry:
+    address: zookeeper://192.168.8.250:2181
+  scan:
+    base-packages: com.study.demo.taotao_user_web.controller
+  provider:
+    timeout: 6000
+  protocol:
+    port: 20885

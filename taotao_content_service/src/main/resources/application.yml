@@ -1,0 +1,44 @@
+server:
+  port: 8085
+
+spring:
+  datasource:
+    username: root
+    password: '123456'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pinyougoudb?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    #redis数据库索引(默认为0)
+    database: 0
+    #redis服务器IP地址
+#    host: 192.168.25.129
+    host: 192.168.8.250
+    #redis端口号
+    port: 6379
+    #连接redis超时时间（毫秒）
+    timeout: 6000
+    #jedis连接池
+    jedis:
+      pool:
+        #最大连接数量
+        max-active: 1000
+        #最大空闲数量
+        max-idle: 10
+        #最小空闲数量
+        min-idle: 1
+        #最大等待时间
+        max-wait: 1000
+    password: 123456
+
+dubbo:
+  application:
+    name: taotaoContentService
+  registry:
+    address: zookeeper://192.168.8.250:2181
+  scan:
+    base-packages: com.study.demo.taotao_content_service.impl
+  provider:
+    timeout: 6000
+  protocol:
+    port: 20883

@@ -1,0 +1,29 @@
+server:
+  port: 8090
+
+dubbo:
+  application:
+    name: taotaoUserService
+  registry:
+    address: zookeeper://192.168.8.250:2181
+  scan:
+    base-packages: com.study.demo.taotao_user_service.impl
+  provider:
+    timeout: 6000
+  protocol:
+    port: 20885
+
+spring:
+  activemq:
+    broker-url: tcp://192.168.25.129:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 10
+  datasource:
+    username: root
+    password: '123456'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pinyougoudb?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    type: com.alibaba.druid.pool.DruidDataSource

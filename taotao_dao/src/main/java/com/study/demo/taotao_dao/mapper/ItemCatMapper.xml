@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.demo.taotao_dao.mapper.ItemCatMapper">
+
+    <select id="insertSolrAllItem" resultType="com.study.demo.taotao_pojo.pojo.TbItem">
+        select *
+        from tb_item
+        where status = '1'
+    </select>
+
+    <select id="selectAllItemCat" resultType="com.study.demo.taotao_pojo.pojo.TbItemCat">
+        select id, parent_id as parentId, name, type_id as typeId
+        from tb_item_cat
+    </select>
+
+    <select id="selectCategoryById" parameterType="Integer" resultType="String">
+        select name
+        from tb_item_cat
+        where id = ${categoryId};
+    </select>
+
+    <select id="selectTypeId" parameterType="Integer" resultType="Integer">
+        select type_id
+        from tb_item_cat
+        where id = ${category3Id}
+    </select>
+    <resultMap id="itemCatMap" type="com.study.demo.taotao_pojo.pojo.TbItemCat">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="type_id" property="typeId"/>
+    </resultMap>
+
+    <select id="selectTbItemCatByParentId" parameterType="Integer" resultMap="itemCatMap">
+        select id, parent_id, name, type_id
+        from tb_item_cat
+        where parent_id = ${parentId}
+    </select>
+
+    <insert id="insertTbItemCat" parameterType="com.study.demo.taotao_pojo.pojo.TbItemCat">
+        insert into tb_item_cat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id >=0">
+                id,
+            </if>
+            <if test="parentId!=null and parentId >=0">
+                parent_id,
+            </if>
+            <if test="name!=null">
+                name,
+            </if>
+            <if test="typeId!=null and typeId >=0">
+                type_id,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id >=0">
+                ${id},
+            </if>
+            <if test="parentId!=null and parentId >=0">
+                ${parentId},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="typeId!=null and typeId >=0">
+                ${typeId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateItemCat" parameterType="com.study.demo.taotao_pojo.pojo.TbItemCat">
+        update tb_item_cat set
+        <trim suffixOverrides=",">
+            <if test="id!=null and id >=0">
+                id=${id},
+            </if>
+            <if test="parentId!=null and parentId >=0">
+                parent_id=#{parentId},
+            </if>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="typeId!=null and typeId >=0">
+                type_id=${typeId},
+            </if>
+        </trim>
+        where id=${id}
+    </update>
+
+    <delete id="deleteItemCat" parameterType="Integer">
+        delete
+        from tb_item_cat
+        where id = ${id}
+    </delete>
+
+    <update id="updateItemCatStatus">
+        update tb_item
+        set status=${param2}
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

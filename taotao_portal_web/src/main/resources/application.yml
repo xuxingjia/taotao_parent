@@ -1,0 +1,14 @@
+server:
+  port: 8086
+
+dubbo:
+  application:
+    name: taotao_portal_web
+  registry:
+    address: zookeeper://192.168.8.250:2181
+  scan:
+    base-packages: com.study.demo.taotao_portal_web.controller
+  consumer:
+    timeout: 6000
+
+

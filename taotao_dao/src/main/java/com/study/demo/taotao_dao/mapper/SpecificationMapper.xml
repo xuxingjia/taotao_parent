@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.demo.taotao_dao.mapper.SpecificationMapper">
+    <select id="selectSpecificationOptionBySpecId" parameterType="Integer" resultType="com.study.demo.taotao_pojo.pojo.TbSpecificationOption">
+        select id, option_name as optionName, spec_id as specId, orders from tb_specification_option where spec_id=${id}
+    </select>
+    <resultMap id="specificationMap" type="com.study.demo.taotao_pojo.result.SpecificationResult">
+        <id property="id" column="id"/>
+        <result property="specName" column="spec_name"/>
+        <association property="specificationOptions" column="id" select="selectSpecificationOptionById"/>
+    </resultMap>
+
+    <resultMap id="specificationOptionMap" type="com.study.demo.taotao_pojo.pojo.TbSpecificationOption">
+        <id column="id" property="id"/>
+        <result column="option_name" property="optionName"/>
+        <result column="spec_id" property="specId"/>
+        <result column="orders" property="orders"/>
+    </resultMap>
+
+    <select id="selectSpecificationOptionById" parameterType="long" resultMap="specificationOptionMap">
+        select id, option_name, spec_id, orders from tb_specification_option where spec_id=#{id}
+    </select>
+
+    <select id="selectSpecifications" resultMap="specificationMap">
+        select id, spec_name from tb_specification
+    </select>
+
+    <select id="selectSpecification" parameterType="Integer" resultMap="specificationMap">
+        select id, spec_name from tb_specification where id=${id}
+    </select>
+
+    <insert id="insertSpecification" parameterType="com.study.demo.taotao_pojo.pojo.TbSpecification" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_specification 
+        <trim suffix=")" prefix="(" suffixOverrides=",">
+            <if test="specName !=null">
+                spec_name,
+            </if>
+        </trim>
+        values
+        <trim suffix=")" prefix="(" suffixOverrides=",">
+            <if test="specName !=null">
+                #{specName},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertSpecificationOption" parameterType="com.study.demo.taotao_pojo.pojo.TbSpecificationOption">
+        insert into tb_specification_option
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null and id >0">
+                id,
+            </if>
+            <if test="optionName!=null">
+                option_name,
+            </if>
+            <if test="specId!=null">
+                spec_id,
+            </if>
+            <if test="orders!=null">
+                orders,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null and id >0">
+                ${id},
+            </if>
+            <if test="optionName!=null">
+                #{optionName},
+            </if>
+            <if test="specId!=null">
+                ${specId},
+            </if>
+            <if test="orders!=null">
+                ${orders},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSpecification" parameterType="com.study.demo.taotao_pojo.pojo.TbSpecification">
+        update tb_specification
+        <trim prefix="set" suffixOverrides=",">
+            <if test="specName!=null">
+                spec_name=#{specName},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <update id="updateSpecificationOption" parameterType="com.study.demo.taotao_pojo.pojo.TbSpecificationOption">
+        update tb_specification_option
+        <trim prefix="set" suffixOverrides=",">
+            <if test="optionName!=null">
+                option_name=#{optionName},
+            </if>
+            <if test="specId!=null and specId>0">
+                spec_id=${specId},
+            </if>
+            <if test="orders!=null and orders>0">
+                orders=${orders},
+            </if>
+        </trim>
+        where id=${id}
+    </update>
+
+    <delete id="deleteSepcificationOption" parameterType="Integer">
+        delete from tb_specification_option where spec_id=${id}
+    </delete>
+
+    <delete id="deleteSpecification" parameterType="Integer">
+        delete from  tb_specification where id=#{id}
+    </delete>
+</mapper>

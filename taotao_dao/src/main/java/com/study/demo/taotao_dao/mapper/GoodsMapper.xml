@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.demo.taotao_dao.mapper.GoodsMapper">
+
+    <select id="selectGoodsSpecificaton" parameterType="Long"
+            resultType="com.study.demo.taotao_pojo.dao.GoodsSpecificationDao">
+        select category1_id as category1Id,category2_id as category2Id,category3_id as category3Id from tb_goods where id=${id}
+    </select>
+
+    <insert id="insertGoodsIamgeUrl" parameterType="com.study.demo.taotao_pojo.pojo.TbGoodsImage">
+        insert into tb_goods_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="url!=null">
+                url,
+            </if>
+            <if test="color!=null">
+                color,
+            </if>
+            <if test="goodsId>0">
+                goods_id,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="url!=null">
+                #{url},
+            </if>
+            <if test="color!=null">
+                #{color},
+            </if>
+            <if test="goodsId>0">
+                ${goodsId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectGoodsImageByGoodsId" parameterType="Long" resultType="com.study.demo.taotao_pojo.pojo.TbGoodsImage">
+        select id, color, url, goods_id as goodsId from tb_goods_image where goods_id=${id}
+    </select>
+
+    <select id="selectGoodsImage" parameterType="Integer" resultType="com.study.demo.taotao_pojo.pojo.TbGoodsImage">
+        select id, color, url, goods_id as goodsId from tb_goods_image where id=${id}
+    </select>
+
+    <delete id="deleteGoodsImageById" parameterType="Integer">
+        delete from tb_goods_image where id=${id}
+    </delete>
+
+    <insert id="insertGoods" parameterType="com.study.demo.taotao_pojo.pojo.TbGoods" keyProperty="id"
+            useGeneratedKeys="true">
+        insert into tb_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id>=0">
+                id,
+            </if>
+            <if test="sellerId!=null">
+                seller_id,
+            </if>
+            <if test="goodsName!=null">
+                goods_name,
+            </if>
+            <if test="defaultItemId!=null and defaultItemId>=0">
+                default_item_id,
+            </if>
+            <if test="auditStatus!=null">
+                audit_status,
+            </if>
+            <if test="isMarketable!=null">
+                is_marketable,
+            </if>
+            <if test="brandId!=null and brandId>=0">
+                brand_id,
+            </if>
+            <if test="caption!=null">
+                caption,
+            </if>
+            <if test="category1Id!=null and category1Id>=0">
+                category1_id,
+            </if>
+            <if test="category2Id!=null and category2Id>=0">
+                category2_id,
+            </if>
+            <if test="category3Id!=null and category3Id>=0">
+                category3_id,
+            </if>
+            <if test="smallPic!=null">
+                small_pic,
+            </if>
+            <if test="price>=0">
+                price,
+            </if>
+            <if test="typeTemplateId!=null and typeTemplateId>=0">
+                type_template_id,
+            </if>
+            <if test="isEnableSpec!=null">
+                is_enable_spec,
+            </if>
+            <if test="isDelete!=null">
+                is_delete
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id>=0">
+                ${id},
+            </if>
+            <if test="sellerId!=null">
+                #{sellerId},
+            </if>
+            <if test="goodsName!=null">
+                #{goodsName},
+            </if>
+            <if test="defaultItemId!=null and defaultItemId>=0">
+                ${defaultItemId},
+            </if>
+            <if test="auditStatus!=null">
+                #{auditStatus},
+            </if>
+            <if test="isMarketable!=null">
+                #{isMarketable},
+            </if>
+            <if test="brandId!=null and brandId>=0">
+                ${brandId},
+            </if>
+            <if test="caption!=null">
+                #{caption},
+            </if>
+            <if test="category1Id!=null and category1Id>=0">
+                ${category1Id},
+            </if>
+            <if test="category2Id!=null and category2Id>=0">
+                ${category2Id},
+            </if>
+            <if test="category3Id!=null and category3Id>=0">
+                ${category3Id},
+            </if>
+            <if test="smallPic!=null">
+                #{smallPic},
+            </if>
+            <if test="price>=0">
+                #{price},
+            </if>
+            <if test="typeTemplateId!=null and typeTemplateId>=0">
+                ${typeTemplateId},
+            </if>
+            <if test="isEnableSpec!=null">
+                #{isEnableSpec},
+            </if>
+            <if test="isDelete!=null">
+                #{isDelete}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="deleteGoods">
+        update tb_goods set is_delete="0" where id=#{id}
+    </update>
+
+    <insert id="insertGoodsDesc" parameterType="com.study.demo.taotao_pojo.pojo.TbGoodsDesc">
+        insert into tb_goods_desc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId!=null and goodsId>=0">
+                goods_id,
+            </if>
+            <if test="introduction!=null">
+                introduction,
+            </if>
+            <if test="specificationItems!=null">
+                specification_items,
+            </if>
+            <if test="customAttributeItems!=null">
+                custom_attribute_items,
+            </if>
+            <if test="itemImages!=null">
+                item_images,
+            </if>
+            <if test="packageList!=null">
+                package_list,
+            </if>
+            <if test="saleService!=null">
+                sale_service
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId!=null and goodsId>=0">
+                ${goodsId},
+            </if>
+            <if test="introduction!=null">
+                #{introduction},
+            </if>
+            <if test="specificationItems!=null">
+                #{specificationItems},
+            </if>
+            <if test="customAttributeItems!=null">
+                #{customAttributeItems},
+            </if>
+            <if test="itemImages!=null">
+                #{itemImages},
+            </if>
+            <if test="packageList!=null">
+                #{packageList},
+            </if>
+            <if test="saleService!=null">
+                #{saleService}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectGoodsAttributeItems" parameterType="Integer" resultType="String">
+        select custom_attribute_items from tb_type_template where id=${id}
+    </select>
+
+    <update id="insertGoodsAttributeItems" parameterType="com.study.demo.taotao_pojo.dao.GoodsAttributeItemsDao">
+        update tb_goods_desc set
+        <if test="josnString!=null">
+            custom_attribute_items=#{josnString}
+        </if>
+        where goods_id=${id}
+    </update>
+
+    <insert id="insertGoodsSku" parameterType="com.study.demo.taotao_pojo.pojo.TbItem" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id >0">
+                id,
+            </if>
+            <if test="title!=null">
+                title,
+            </if>
+            <if test="sellPoint!=null">
+                sell_point,
+            </if>
+            <if test="price!=null and price >=0">
+                price,
+            </if>
+            <if test="stockCount!=null and stockCount>=0">
+                stock_count,
+            </if>
+            <if test="num!=null and num >=0">
+                num,
+            </if>
+            <if test="barcode!=null">
+                barcode,
+            </if>
+            <if test="image!=null">
+                image,
+            </if>
+            <if test="categoryId!=null and categoryId>=0">
+                categoryId,
+            </if>
+            <if test="status!=null">
+                status,
+            </if>
+            <if test="itemSn!=null">
+                item_sn,
+            </if>
+            <if test="costPirce!=null and costPirce>=0">
+                cost_pirce,
+            </if>
+            <if test="marketPrice!=null and marketPrice>=0">
+                market_price,
+            </if>
+            <if test="isDefault!=null">
+                is_default,
+            </if>
+            <if test="goodsId!=null and goodsId>=0">
+                goods_id,
+            </if>
+            <if test="sellerId!=null">
+                seller_id,
+            </if>
+            <if test="cartThumbnail!=null">
+                cart_thumbnail,
+            </if>
+            <if test="category!=null">
+                category,
+            </if>
+            <if test="brand!=null">
+                brand,
+            </if>
+            <if test="spec!=null">
+                spec,
+            </if>
+            <if test="seller!=null">
+                seller,
+            </if>
+            <if test="createTime!=null">
+                create_time,
+            </if>
+            <if test="updateTime!=null">
+                update_time,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null and id >0">
+                ${id},
+            </if>
+            <if test="title!=null">
+                #{title},
+            </if>
+            <if test="sellPoint!=null">
+                #{sellPoint},
+            </if>
+            <if test="price!=null and price >=0">
+                ${price},
+            </if>
+            <if test="stockCount!=null and stockCount>=0">
+                ${stockCount},
+            </if>
+            <if test="num!=null and num >=0">
+                ${num},
+            </if>
+            <if test="barcode!=null">
+                #{barcode},
+            </if>
+            <if test="image!=null">
+                #{image},
+            </if>
+            <if test="categoryId!=null and categoryId>=0">
+                ${categoryId},
+            </if>
+            <if test="status!=null">
+                #{status},
+            </if>
+            <if test="itemSn!=null">
+                #{itemSn},
+            </if>
+            <if test="costPirce!=null and costPirce>=0">
+                ${costPirce},
+            </if>
+            <if test="marketPrice!=null and marketPrice>=0">
+                ${marketPrice},
+            </if>
+            <if test="isDefault!=null">
+                #{isDefault},
+            </if>
+            <if test="goodsId!=null and goodsId>=0">
+                ${goodsId},
+            </if>
+            <if test="sellerId!=null">
+                #{sellerId},
+            </if>
+            <if test="cartThumbnail!=null">
+                #{cartThumbnail},
+            </if>
+            <if test="category!=null">
+                #{category},
+            </if>
+            <if test="brand!=null">
+                #{brand},
+            </if>
+            <if test="spec!=null">
+                #{spec},
+            </if>
+            <if test="seller!=null">
+                #{seller},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="updateTime!=null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateGoodsIsEnableSpecById" parameterType="com.study.demo.taotao_pojo.params.GoodsEnableSpecParams">
+        update tb_goods set
+        <if test="status!=null">
+            is_enable_spec=#{status}
+        </if>
+        where
+        id=#{id}
+    </update>
+    <resultMap id="goodsMap" type="com.study.demo.taotao_pojo.pojo.TbGoods">
+        <id column="id" property="id"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="seller_id" property="sellerId"/>
+        <result column="default_item_id" property="defaultItemId"/>
+        <result column="audit_status" property="auditStatus"/>
+        <result column="is_marketable" property="isMarketable"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="category1_id" property="category1Id"/>
+        <result column="category2_id" property="category2Id"/>
+        <result column="category3_id" property="category3Id"/>
+        <result column="small_pic" property="smallPic"/>
+        <result column="type_template_id" property="typeTemplateId"/>
+        <result column="is_enable_spec" property="isEnableSpec"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <select id="selectGoodsBySellerId" parameterType="com.study.demo.taotao_pojo.params.SelectGoodsParams"
+            resultMap="goodsMap">
+        select id,
+        seller_id,
+        goods_name,
+        default_item_id, audit_status, is_marketable, brand_id, caption, category1_id, category2_id, category3_id,
+        small_pic, price, type_template_id, is_enable_spec, is_delete
+        from tb_goods
+        <where>
+            <if test="sellerId!=null">
+                and seller_id=#{sellerId}
+            </if>
+            and is_delete=1
+            <if test="queryCondition!=null">
+                and goods_name like "%${queryCondition}%"
+            </if>
+            <if test="auditStatus!=null">
+                and audit_status=#{auditStatus}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateGoodsInfo" parameterType="com.study.demo.taotao_pojo.pojo.TbGoods">
+        update tb_goods set
+        <trim suffixOverrides=",">
+            <if test="sellerId!=null">
+                seller_id =#{sellerId},
+            </if>
+            <if test="goodsName!=null">
+                goods_name =#{godosName},
+            </if>
+            <if test="defaultItemId!=null and defaultItemId>=0">
+                default_item_id =${defaultItemId},
+            </if>
+            <if test="auditStatus!=null">
+                audit_status =#{auditStatus},
+            </if>
+            <if test="isMarketable!=null">
+                is_marketable =#{isMarketable},
+            </if>
+            <if test="brandId!=null and brandId>=0">
+                brand_id =${brandId},
+            </if>
+            <if test="caption!=null">
+                caption =#{caption},
+            </if>
+            <if test="category1Id!=null and category1Id>=0">
+                category1_id =${category1Id},
+            </if>
+            <if test="category2Id!=null and category2Id>=0">
+                category2_id=${category2Id},
+            </if>
+            <if test="category3Id!=null and category3Id>=0">
+                category3_id=${category3Id},
+            </if>
+            <if test="smallPic!=null">
+                small_pic=#{smallPic},
+            </if>
+            <if test="price>=0">
+                price=${price},
+            </if>
+            <if test="typeTemplateId!=null and typeTemplateId>=0">
+                type_template_id=${typeTemplateId},
+            </if>
+            <if test="isEnableSpec!=null">
+                is_enable_spec=#{isEnableSpec},
+            </if>
+            <if test="isDelete!=null">
+                is_delete=#{isDelete}
+            </if>
+        </trim>
+       <where>
+           <if test="id!=null and id >=0">
+               and id=${id}
+           </if>
+       </where>
+    </update>
+
+    <select id="selectGoodsAttribute" parameterType="Integer"
+            resultType="com.study.demo.taotao_pojo.dao.GoodsAtrributeDao">
+        select seller_id as sellerId,goods_name as goodsName,brand_id as brandId,
+        category1_id as category1Id,category2_id as category2Id,category3_id as category3Id from tb_goods where id=${id}
+    </select>
+</mapper>
