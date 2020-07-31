@@ -69,4 +69,11 @@ public interface ItemCatMapper {
      * @return 修改成功返回 >1
      */
     int updateItemCatStatus(Integer[] ids, String status);
+
+    /**
+     * 根据商品ID 获取商品信息
+     * @param itemId 商品ID
+     * @return 商品信息
+     */
+    TbItem selectTbItemById(long itemId);
 }
