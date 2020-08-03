@@ -5,7 +5,7 @@ import com.study.demo.taotao_pojo.pojo.TbOrderItem;
 import java.io.Serializable;
 import java.util.List;
 
-public class ShoppongCartResult implements Serializable {
+public class ShoppingCartResult implements Serializable {
 
     private String sellerId;
 

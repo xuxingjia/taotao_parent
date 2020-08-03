@@ -2,6 +2,8 @@ package com.study.demo.taotao_pojo.pojo;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 public class TbOrderItem implements Serializable{
 
   private long id;
@@ -9,9 +11,9 @@ public class TbOrderItem implements Serializable{
   private long goodsId;
   private long orderId;
   private String title;
-  private double price;
+  private BigDecimal price;
   private long num;
-  private double totalFee;
+  private BigDecimal totalFee;
   private String picPath;
   private String sellerId;
 
@@ -61,14 +63,13 @@ public class TbOrderItem implements Serializable{
   }
 
 
-  public double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
-
 
   public long getNum() {
     return num;
@@ -79,14 +80,13 @@ public class TbOrderItem implements Serializable{
   }
 
 
-  public double getTotalFee() {
+  public BigDecimal getTotalFee() {
     return totalFee;
   }
 
-  public void setTotalFee(double totalFee) {
+  public void setTotalFee(BigDecimal totalFee) {
     this.totalFee = totalFee;
   }
-
 
   public String getPicPath() {
     return picPath;
